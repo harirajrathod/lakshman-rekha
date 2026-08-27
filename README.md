@@ -1,70 +1,110 @@
 <div align="center">
 
-# 🛡️ AgentGate AI
-### The Zero-Trust Policy Engine & Real-Time Action Firewall for Autonomous AI Agents
+# 🛡️ Lakshman Rekha (लक्ष्मण रेखा)
+### The Inviolable Authorization Boundary & State Control Plane for Autonomous AI Agents
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
-[![Latency SLA](https://img.shields.io/badge/Latency-%3C%200.05ms-emerald.svg)](#benchmarks)
-[![Throughput](https://img.shields.io/badge/Throughput-21%2C000%2B%20req%2Fsec-indigo.svg)](#benchmarks)
-[![EU AI Act Ready](https://img.shields.io/badge/Compliance-EU%20AI%20Act%20%7C%20SOC2-orange.svg)](#compliance)
+[![Decision Latency](https://img.shields.io/badge/Decision%20Latency-%3C%200.1ms-emerald.svg)](#benchmarks)
+[![Throughput](https://img.shields.io/badge/Throughput-9%2C000%2B%20RPS%2Fcore-indigo.svg)](#benchmarks)
+[![Security Standard](https://img.shields.io/badge/Security-Machine%20Transaction%20AuthZ-orange.svg)](#the-authorization-gap)
 
-**Prevent autonomous AI agents from hallucinating rogue API calls, wiping production databases, leaking PII, or executing unauthorized financial transactions.**
+**"Identity tells you who the machine is. Permissions tell you what it can access. Lakshman Rekha defines the line it can never cross."**
 
-[Quickstart](#quickstart-in-30-seconds) • [Architecture](#architecture) • [Features](#key-features) • [Dashboard](#live-web-management-console) • [Benchmarks](#benchmarks) • [MCP Proxy](#anthropic-mcp-integration)
+[The Authorization Gap](#the-authorization-gap) • [Flagship Demos](#-flagship-demos) • [Architecture](#architecture) • [Quickstart](#quickstart-in-30-seconds) • [Benchmarks](#benchmarks) • [MCP Proxy](#anthropic-model-context-protocol-mcp-integration)
 
 </div>
 
 ---
 
-## ⚡ Why AgentGate? (The Agent Blast Radius)
+## ⚡ The Category Wedge: The Autonomous Authorization Gap
 
-Between 2023 and 2025, enterprise AI was purely informational (RAG, chatbots). Today, enterprise agents operate **autonomously** with direct write privileges to production databases, payment gateways, and cloud IAM infrastructure.
+Traditional security models fail when applied to autonomous AI agents because they answer the wrong questions:
+- **Traditional IAM (Okta, CyberArk):** Answers *"Who is the agent?"* and *"What static resources can it access?"* (Blind to cumulative financial transactions and runtime parameters).
+- **API Gateways & WAFs (Cloudflare, Kong):** Answers *"Is the HTTP payload syntactically valid?"* (Blind to multi-turn agent state and MCP JSON-RPC schemas).
+- **LLM Guardrails (Llama Guard, NeMo):** Answers *"Does this text sound malicious?"* (Fuzzy, non-deterministic, and incurs a 300ms–800ms latency penalty).
 
-Existing observability tools (Datadog, LangSmith, Arize) are **post-mortem loggers**—they alert you *after* the rogue payment has processed or the database table has been dropped. Traditional WAFs (Cloudflare) are blind to semantic agent intents.
+**Lakshman Rekha answers the only question that matters for autonomous systems:**
+> *"Regardless of what the model reasons, is this exact transaction authorized given the agent's identity, delegation chain, cumulative session state, and organizational boundary policies?"*
 
-**AgentGate is an inline, sub-millisecond execution firewall that validates, sanitizes, or blocks tool payloads *before* they reach your execution plane.**
+### 📊 The Category Authorization Gap Matrix
 
-```
-                 ┌─────────────────────────────────────────────────────────┐
-                 │                 AUTONOMOUS AI AGENT                     │
-                 │   (LangGraph / CrewAI / AutoGen / MCP / Claude / GPT)   │
-                 └────────────────────────────┬────────────────────────────┘
-                                              │  1. Tool Execution Call
-                                              ▼
-                 ┌─────────────────────────────────────────────────────────┐
-                 │                 AGENTGATE AI FIREWALL                   │
-                 │ ┌─────────────────────────────────────────────────────┐ │
-                 │ │ ⚡ Sub-0.05ms Policy Engine (CEL & Rego Logic)      │ │
-                 │ ├─────────────────────────────────────────────────────┤ │
-                 │ │ 🛡️ Prompt Injection & Indirect Jailbreak Filter     │ │
-                 │ ├─────────────────────────────────────────────────────┤ │
-                 │ │ 🔒 Sensitive PII / PHI Token Masker & Redactor      │ │
-                 │ ├─────────────────────────────────────────────────────┤ │
-                 │ │ 🛑 Human-in-the-Loop (HITL) Smart Circuit Breaker   │ │
-                 │ ├─────────────────────────────────────────────────────┤ │
-                 │ │ 📜 Cryptographic Non-Repudiation Audit Ledger       │ │
-                 │ └─────────────────────────────────────────────────────┘ │
-                 └────────────────────────────┬────────────────────────────┘
-                                              │  2. Deterministic Allowed Action
-                                              ▼
-                 ┌─────────────────────────────────────────────────────────┐
-                 │               ENTERPRISE EXECUTION PLANE                │
-                 │    (Production DBs, Stripe APIs, AWS IAM, Salesforce)   │
-                 └─────────────────────────────────────────────────────────┘
-```
+| Security Dimension | Standard IAM | API Gateway / WAF | LLM Guardrails | **Lakshman Rekha** |
+| :--- | :---: | :---: | :---: | :---: |
+| **Agent Machine Identity** | ✅ Yes | ❌ No | ❌ No | **✅ Native** |
+| **Static Tool Allow/Deny** | ⚠️ Partial | ⚠️ Partial | ❌ No | **✅ Native** |
+| **Deterministic Parameter Bounds** (e.g. $100 cap) | ❌ No | ⚠️ Partial | ❌ No (Fuzzy) | **✅ Native (< 0.1ms)** |
+| **Cumulative Session Spend Cap** (e.g. $500 total) | ❌ No | ❌ No | ❌ No | **✅ Native** |
+| **Slow-Drip Data Exfiltration Detection** | ❌ No | ❌ No | ❌ No | **✅ Native** |
+| **Swarm Recursion Brakes** (Loop Caps) | ❌ No | ⚠️ Partial | ⚠️ Partial | **✅ Native** |
+| **Zero LLM Latency Tax** (< 0.1ms overhead) | ✅ Yes | ✅ Yes | ❌ No (300-800ms) | **✅ Native (< 0.1ms)** |
+| **Action Evidence Ledger** (Cryptographic Non-Repudiation) | ⚠️ Partial | ⚠️ Partial | ❌ No | **✅ SHA-256 Receipts** |
 
 ---
 
-## 🚀 Key Features
+## 🎯 Flagship Demos
 
-- **⚡ Sub-Millisecond Policy Engine:** Evaluates tool names, arguments, and parameter schemas with zero perceptible latency (< 0.05ms average).
-- **🔒 Dynamic PII & Secret Redactor:** Luhn-validated Credit Card masking, US SSN redaction, and API token scrubbing (OpenAI, Stripe, AWS, JWT).
-- **🛡️ Prompt Injection & Jailbreak Defense:** Detects indirect injection and adversarial evasion patterns inside tool parameters.
-- **🛑 Human-in-the-Loop (HITL) Alerting:** Automatically pauses execution for high-stakes actions (e.g. `refund > $100` or `modify_iam_role`) and dispatches instant Telegram/Slack approval cards.
-- **📜 Cryptographic Non-Repudiation Ledger:** Generates SHA-256 signed receipts for every evaluated action (EU AI Act & SOC2 audit ready).
-- **🔌 Model Context Protocol (MCP) Proxy:** Native JSON-RPC proxy endpoint for Anthropic Claude and MCP-compatible agents.
-- **🖥️ Built-in Web Console & Interactive Sandbox:** Real-time visual traffic stream, policy editor, and interactive attack simulation playground.
+### Demo 1: Stateful Cumulative Transaction Authorization
+An agent with role `SupportAgent_Tier1` has permission to refund customers up to **$100 per transaction** and **$500 cumulative per session**.
+
+```
+[Action 1] Refund $80  ──▶ ✅ ALLOWED (Session Total: $80 / $500)
+[Action 2] Refund $90  ──▶ ✅ ALLOWED (Session Total: $170 / $500)
+[Action 3] Refund $95  ──▶ ✅ ALLOWED (Session Total: $265 / $500)
+[Action 4] Refund $90  ──▶ ✅ ALLOWED (Session Total: $355 / $500)
+[Action 5] Refund $160 ──▶ 🛑 BLOCKED (Single cap > $100 & pushes session to $515 > $500)
+[Action 6] Refund $80  ──▶ ✅ ALLOWED (Session Total: $435 / $500)
+[Action 7] Refund $70  ──▶ 🛑 BLOCKED (Cumulative cap breach: $435 + $70 = $505 > $500)
+```
+Run this live: `python examples/stateful_authorization_demo.py`
+
+---
+
+### Demo 2: The "Slow-Drip" Exfiltration Interception
+An agent reads individual customer records one-by-one (50 records) and subsequently attempts to execute `export_data_to_external_sftp`.
+- **Stateless WAF / IAM:** Allows the export because the export tool is on the agent's allowlist.
+- **Lakshman Rekha:** Evaluates the session state (`records_accessed == 50`) and **BLOCKS the export in 0.18 ms** with cryptographic proof.
+
+Run this live: `python examples/slow_drip_exfiltration_demo.py`
+
+---
+
+## 🏛️ Architecture: The Dual-Path Control Plane
+
+```
+                          AUTONOMOUS AI AGENT / MCP CLIENT
+                                         │
+                                         ▼
+                     ┌───────────────────────────────────────┐
+                     │         LAKSHMAN REKHA KERNEL         │
+                     │  (Identity, Session Context & State)  │
+                     └───────────────────┬───────────────────┘
+                                         │
+                 ┌───────────────────────┴───────────────────────┐
+                 ▼                                               ▼
+     ┌────────────────────────┐                     ┌────────────────────────┐
+     │ ⚡ FAST-PATH ENGINE     │                     │ 🧠 DEEP INTELLIGENCE   │
+     │   (< 0.1 ms Latency)   │                     │   (Asynchronous/Deep)  │
+     ├────────────────────────┤                     ├────────────────────────┤
+     │ • Role & Tool RBAC     │                     │ • Swarm collusion      │
+     │ • Parameter Bounds     │                     │ • Behavioral drift     │
+     │ • Cumulative State     │                     │ • Semantic anomaly     │
+     │   (Spend, Records Read)│                     │ • Injection classifier │
+     │ • PII/DLP Token Redact │                     └───────────┬────────────┘
+     │ • State Machine Graph  │                                 │
+     └───────────┬────────────┘                                 │
+                 │                                              │
+                 └───────────────────────┬──────────────────────┘
+                                         ▼
+                             FINAL VERDICT & STATE UPDATE
+                        [ ALLOW | BLOCK | ESCALATE_HITL ]
+                                         │
+                                         ▼
+                     ┌───────────────────────────────────────┐
+                     │  📜 ACTION EVIDENCE LEDGER            │
+                     │  (SHA-256 Cryptographic Receipts)     │
+                     └───────────────────────────────────────┘
+```
 
 ---
 
@@ -72,43 +112,42 @@ Existing observability tools (Datadog, LangSmith, Arize) are **post-mortem logge
 
 ### 1. Installation
 ```bash
-git clone https://github.com/iamhariraj/agentgate.git
-cd agentgate
+git clone https://github.com/harirajrathod/lakshman-rekha.git
+cd lakshman-rekha
 pip install -r requirements.txt
 ```
 
-### 2. Launch AgentGate Firewall & Web Dashboard
+### 2. Launch the Firewall Server & Dashboard
 ```bash
 python -m agentgate.server
 ```
-Open **`http://localhost:8765`** in your browser to view the live dashboard and interactive test playground!
+Open **`http://localhost:8765`** in your browser.
 
 ### 3. Guard Agent Actions (Python SDK)
 ```python
 from agentgate.client import AgentGateClient, AgentGateSecurityException
 
-# Initialize Client
-gate = AgentGateClient(gateway_url="http://localhost:8765")
+rekha = AgentGateClient(gateway_url="http://localhost:8765")
 
-# Example 1: Safe Action -> Returns clean, sanitized payload
-clean_args = gate.guard_tool("search_kb", {"query": "return policy", "limit": 3})
-print("Allowed:", clean_args)
-
-# Example 2: Dangerous Action -> Raises Security Exception before execution
+# Guard an action against identity + cumulative state limits
 try:
-    gate.guard_tool("execute_db", {"sql": "DROP TABLE users;"})
+    clean_args = rekha.guard_tool(
+        tool_name="stripe_issue_refund",
+        tool_args={"customer_id": "cus_982", "amount": 85.00},
+        session_id="sess_support_99"
+    )
+    print("Allowed:", clean_args)
 except AgentGateSecurityException as e:
-    print("Shielded by AgentGate:", e)
+    print("Boundary Enforced:", e)
 ```
 
 ---
 
-## 🔌 Anthropic MCP Integration
+## 🔌 Anthropic Model Context Protocol (MCP) Integration
 
-AgentGate acts as a transparent JSON-RPC proxy for Anthropic's Model Context Protocol:
+Lakshman Rekha operates as a native pre-execution proxy for MCP:
 
 ```bash
-# Intercept and validate MCP tools/call requests
 curl -X POST http://localhost:8765/v1/mcp/proxy \
   -H "Content-Type: application/json" \
   -d '{
@@ -122,51 +161,26 @@ curl -X POST http://localhost:8765/v1/mcp/proxy \
   }'
 ```
 
-**Response (Blocked in 0.03ms):**
-```json
-{
-  "jsonrpc": "2.0",
-  "id": 1,
-  "error": {
-    "code": -32000,
-    "message": "AgentGate Security Block: Violation of policy 'Block Dangerous Database Writes' (ID: RULE-SQL-01): Detected restricted pattern 'drop table' in parameters."
-  }
-}
-```
-
 ---
 
-## 📊 Benchmarks
+## 📊 Scientific Benchmarks & Empirical Honesty
 
-Benchmark results evaluated across 1,000 continuous evaluations on standard hardware:
+Tested on 1 vCPU AMD EPYC 7543P @ 2.0GHz across 25,000 continuous evaluations:
 
-| Metric | Result | Benchmark Target |
-| :--- | :--- | :--- |
-| **Mean Latency** | **0.047 ms** | Sub-5.0 ms SLA |
-| **Median (p50)** | **0.015 ms** | Sub-1.0 ms |
-| **99th Percentile (p99)** | **1.052 ms** | Sub-5.0 ms |
-| **Throughput** | **21,000+ evals / sec** | High-concurrency ready |
+- **Mean Evaluation Latency:** **0.043 ms** (43 microseconds)
+- **Median (p50):** **0.018 ms** (18 microseconds)
+- **p99 Latency (Single Thread):** **1.066 ms**
 
-To run the benchmarks locally:
-```bash
-python benchmarks/run_benchmark.py
-```
+### Concurrency Load Scaling (1 vCPU Core)
 
----
+| Workers | Total Requests | Throughput (RPS) | p50 (ms) | p99 (ms) | Takeaway |
+| :---: | :---: | :---: | :---: | :---: | :--- |
+| **1 Worker** | 2,500 | **6,970 req/sec** | **0.073 ms** | **1.299 ms** | Baseline optimal |
+| **2 Workers** | 5,000 | **9,213 req/sec** | **0.073 ms** | **6.782 ms** | Peak single-core throughput |
+| **4 Workers** | 10,000 | **7,984 req/sec** | **0.074 ms** | **19.609 ms** | CPU context switching |
+| **8 Workers** | 20,000 | **8,361 req/sec** | **0.075 ms** | **25.706 ms** | Thread queue contention |
 
-## 🧪 Running the Test Suite
-
-```bash
-pytest tests/ -v
-```
-
----
-
-## 🐳 Docker Deployment
-
-```bash
-docker-compose up -d --build
-```
+> **Systems Note:** Median latency remains flat at ~73 µs across all concurrency levels. On a single physical core, scaling threads beyond 2 workers increases tail latency (p99) due to Python GIL / thread context switching.
 
 ---
 

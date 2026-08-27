@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "agentgate-ai"
+name = "lakshman-rekha"
 version = "1.0.0"
-description = "The Zero-Trust Policy Engine & Real-Time Action Firewall for Autonomous AI Agents"
+description = "The Inviolable Transaction Authorization Boundary & State Control Plane for Autonomous AI Agents"
 readme = "README.md"
 authors = [{ name = "Hariraj Rathod", email = "iamhariraj@gmail.com" }]
 license = { text = "Apache-2.0" }
@@ -25,5 +25,5 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/iamhariraj/agentgate"
-"Bug Tracker" = "https://github.com/iamhariraj/agentgate/issues"
+"Homepage" = "https://github.com/harirajrathod/lakshman-rekha"
+"Bug Tracker" = "https://github.com/harirajrathod/lakshman-rekha/issues"
