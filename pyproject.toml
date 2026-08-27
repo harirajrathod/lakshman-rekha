@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentgate-ai"
+version = "1.0.0"
+description = "The Zero-Trust Policy Engine & Real-Time Action Firewall for Autonomous AI Agents"
+readme = "README.md"
+authors = [{ name = "Hariraj Rathod", email = "iamhariraj@gmail.com" }]
+license = { text = "Apache-2.0" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "pydantic>=2.6.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/iamhariraj/agentgate"
+"Bug Tracker" = "https://github.com/iamhariraj/agentgate/issues"
